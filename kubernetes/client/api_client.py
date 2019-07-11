@@ -164,6 +164,10 @@ class ApiClient(object):
         # perform request and return response
         try:
 
+            # from kubernetes import config as c
+            # c.load_kube_config()
+            # self.configuration = Configuration()
+
             response_data = self.request(method, url,
                                          query_params=query_params,
                                          headers=header_params,
@@ -178,6 +182,7 @@ class ApiClient(object):
             if e.status == 401 or e.reason == 'Unauthorized':
                 from kubernetes import config as c
                 c.load_kube_config()
+                self.configuration = Configuration()
             raise e
 
         self.last_response = response_data
